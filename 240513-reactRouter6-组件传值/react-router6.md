@@ -18,12 +18,12 @@ const My = () => {
 }
 
 const RouterLink = () => {
-	return (
-		<Routes>
+  return (
+    <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/my" element={<My />} />
     </Routes>
-	)
+  )
 }
 ```
 最外层组件需要被Router包含，除了BrowserRouter还有HashRouter，后者会在网址中包含#，不够美观
