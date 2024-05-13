@@ -33,7 +33,7 @@ const MyComponent = () => {
 
 如果这样，在set后紧接着打印count的值，会发现，打印的是更新前的值
 
-![1715588159487.png](https://pic2.ziyuan.wang/user/xiaojian/2024/05/1715588159487_8617a9efb6347.png)
+![image](https://github.com/fengzai6/StudyNote/assets/112751823/c8b7bef3-a9db-4d5c-828f-71f6c2c0f14a)
 
 ```tsx
 <button
