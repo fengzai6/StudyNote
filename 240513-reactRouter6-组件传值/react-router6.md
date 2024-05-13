@@ -7,7 +7,7 @@ import { Route, Routes } from "react-router-dom";
 
 const Home = () => {
 	return (
-	 <h1>首页<h1/>
+		<h1>首页<h1/>
 	)
 }
 
@@ -19,41 +19,39 @@ const My = () => {
 
 const RouterLink = () => {
 	return (
-	 <Routes>
-   	<Route path="/" element={<Home />} />
-    <Route path="/my" element={<My />} />
-   </Routes>
+		<Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/my" element={<My />} />
+    </Routes>
 	)
 }
 ```
-
-最外层组件需要被 Router 包含，除了 BrowserRouter 还有 HashRouter，后者会在网址中包含#，不够美观
-
+最外层组件需要被Router包含，除了BrowserRouter还有HashRouter，后者会在网址中包含#，不够美观
 ```tsx
 import { BrowserRouter } from "react-router-dom";
 
 const App = () => {
-  return (
-    <BrowserRouter>
-      <RouterLink />
-    </BrowserRouter>
-  );
-};
+	return (
+		<BrowserRouter>
+			<RouterLink />
+		</BrowserRouter>
+	)
+}
 ```
 
-BrowserRouter 与 HashRouter 的优劣之分
+BrowserRouter与HashRouter的优劣之分
 
 BrowserRouter：
 
 优点：
 
-1、更好的 url 结构
+1、更好的url结构
 
-2、更好的 seo 优化
+2、更好的seo优化
 
 缺点：
 
-1、有时候需要服务器的配合，将所有指向都处理到 index.html 中，不然会 404
+1、有时候需要服务器的配合，将所有指向都处理到index.html中，不然会404
 
 2、不支持比较旧版浏览器
 
@@ -67,8 +65,10 @@ HashRouter
 
 缺点：
 
-1、URL 不够好看
+1、URL不够好看
 
 2、用户不方便记住网址
 
-推荐使用`BrowserRouter`
+
+
+推荐使用`BrowserRouter` 
