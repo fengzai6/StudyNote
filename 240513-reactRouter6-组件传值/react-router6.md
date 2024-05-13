@@ -6,15 +6,15 @@
 import { Route, Routes } from "react-router-dom";
 
 const Home = () => {
-	return (
-		<h1>首页<h1/>
-	)
+  return (
+    <h1>首页<h1/>
+  )
 }
 
 const My = () => {
-	return (
-		<h1>我的</h1>
-	)
+  return (
+    <h1>我的</h1>
+  )
 }
 
 const RouterLink = () => {
@@ -31,11 +31,11 @@ const RouterLink = () => {
 import { BrowserRouter } from "react-router-dom";
 
 const App = () => {
-	return (
-		<BrowserRouter>
-			<RouterLink />
-		</BrowserRouter>
-	)
+  return (
+    <BrowserRouter>
+      <RouterLink />
+    </BrowserRouter>
+  )
 }
 ```
 
