@@ -17,7 +17,7 @@ const [count, setCount] = useState<number>(0);
 ```tsx
 import { useState } from 'react';
 
-function MyComponent() {
+const MyComponent = () => {
   const [count, setCount] = useState<number>(0);
 
   return (

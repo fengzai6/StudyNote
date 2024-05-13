@@ -7,7 +7,7 @@
 ```tsx
 import { useEffect, useState } from "react";
 
-function MyComponent() {
+const MyComponent = () => {
   const [count, setCount] = useState<number>(0);
   useEffect(() => {
     console.log("componentDidMount", count);
