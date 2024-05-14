@@ -115,13 +115,13 @@ export const Todos = () => {
 
 当我们点击add或者remove的时候，ussMemo会重新执行，因为对应的todos发生了变化
 
-![image-20240514110605133](/Users/liufaqiang/Library/Application Support/typora-user-images/image-20240514110605133.png)
+![image.png](http://p0.meituan.net/csc/4c8146b7d683ddbcee23a552769912be13551.png)
 
 点击add的时候输出的没有变化是因为，返回的是前5个数据，而添加的数据在第9个
 
 现在试试修改显示条数num
 
-![image-20240514110836946](/Users/liufaqiang/Library/Application Support/typora-user-images/image-20240514110836946.png)
+![image.png](http://p0.meituan.net/csc/11e228eedcb41bdb7ff4cad4d0fa37da49419.png)
 
 现在可以看到之前新加的那条todo了，因为num发生了变化，所以useMemo也执行了一次
 
