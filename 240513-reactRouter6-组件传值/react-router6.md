@@ -72,3 +72,87 @@ HashRouter
 
 
 推荐使用`BrowserRouter` 
+
+
+
+## `<Suspense>`
+
+`<Suspense>` 允许在子组件完成加载前展示后备方案。
+
+```
+<Suspense fallback={<Loading />}>
+  <MyComponent />
+</Suspense>
+```
+
+可以将它放入Route中的element中进行使用
+
+```
+<Route path={/home} element={
+	<Suspense fallback={<Loading/>}><Component/></Suspense>
+}>
+</Route>
+```
+
+
+
+## 嵌套路由
+
+类似vue-router，react-router v6也能实现嵌套路由
+
+`<router-view>` 对应 `<Outlet />`
+
+嵌套例子
+
+外层组件
+
+```
+import { Outlet } from "react-router-dom";
+
+const ParentComponent = () => {
+  return (
+    <div>
+      <h1>Parent Component</h1>
+      <Outlet />
+    </div>
+  );
+}
+```
+
+内嵌组件
+
+```
+const ChildComponent = () => {
+  return (
+    <div>
+      <h1>Child Component</h1>
+    </div>
+  );
+}
+```
+
+路由配置
+
+```
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import { ParentComponent, ChildComponent } from "./component"
+
+const App = () => {
+	<BrowserRouter>
+		<Routes>
+			<Route path="parent" element={<ParentComponent /> }>
+				<Route path="child" element={<ChildComponent />} />
+			</Route>
+		</Routes>
+	</BrowserRouter>
+}
+```
+
+显示如下，可以看到子组件通过父组件中的`<Outlet />`显示了出来：
+
+![image.png](http://p0.meituan.net/csc/0f60f448ac4d20b8ce1477726494016c16701.png)
+
+
+
+### 实现编写routes数组循环嵌套路由
