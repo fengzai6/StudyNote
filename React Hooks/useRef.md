@@ -29,7 +29,7 @@ export const Message = () => {
 
   useEffect(() => {
     console.log("component render");
-  });
+  }, []);
 
   return (
     <div>
