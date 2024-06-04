@@ -53,3 +53,85 @@ const MyComponent = () => {
 
 
 如果需要打印更新后的值，可以使用useEffect（）
+
+
+
+### 深入理解更新时机
+
+先看例子，其中在一次点击的时候，对number设置了7次state，哈哈是不是很多很乱
+
+```
+import { useEffect, useState } from "react";
+
+export function Restaurant() {
+  const [number, setNumber] = useState(0);
+
+  useEffect(() => {
+    console.log("useEffect", number);
+  }, [number]);
+
+  return (
+    <>
+      <h1>{number}</h1>
+      <button
+        onClick={() => {
+          setNumber(0);
+          setNumber(5);
+          setTimeout(() => {
+            setNumber(() => number + 6);
+            console.log(number);
+          }, 0);
+          setNumber(number + 1);
+          setNumber((n) => n + 33);
+          setNumber(42);
+          setTimeout(() => {
+            setNumber((n) => n + 12);
+            console.log(number);
+          }, 0);
+        }}
+      >
+        增加数字
+      </button>
+    </>
+  );
+}
+
+```
+
+猜猜点击后输出结果是什么呢？54？42？又或者12？
+
+看看ai的答复，gemini1.5、gpt4、gpt4o的回答是：
+
+![image.png](http://p1.meituan.net/csc/9bf3110ca9d48042f293421fbc76d3de64185.png)
+
+诶呦，怎么都说的一样呀，难不成偷偷私下串通好了？
+
+然而答案是：
+
+![image.png](http://p1.meituan.net/csc/a15176b98d34013d9daa1c2dae1e7c7310626.png)
+
+啊？什么意料之外的值？
+
+看着console和代码，结合官方文档的说法，也是能够明白为什么了
+
+我们可以知道setTimeout的是肯定不和原来的在一起执行了，所以顺序变成这样：
+
+```
+setNumber(0);
+setNumber(5);
+setNumber(number + 1);
+setNumber((n) => n + 33);
+setNumber(42);
+setTimeout(() => {
+setNumber(() => number + 6);
+console.log(number);
+}, 0);
+setTimeout(() => {
+setNumber((n) => n + 12);
+console.log(number);
+}, 0);
+```
+
+显而易见，首先成功更新的值是42
+
+然后由于两个setTimeout都是延迟0毫秒执行，react便将他们按顺序执行了，所以当第一个setTimeout➕6后，第二个setTimeout就根据更新后的值进行➕12 （因为使用了更新函数n => n+1），最后就是`0+6+12=18`啦，为什么不是42起加呢，明明第一次都赋值了呀，原因是因为setTimeout在第一次中拿到的number是还没更新后的值！拿着原来的值离开，就算离开后值改变了，手里的依旧是原来那个它，所以只能根据原来的它进行计算赋值了

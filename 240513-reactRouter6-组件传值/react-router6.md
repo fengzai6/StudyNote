@@ -75,9 +75,9 @@ HashRouter
 
 
 
-### `<Suspense>`
+### `<Suspense>`优化白屏等待
 
-`<Suspense>` 允许在子组件完成加载前展示后备方案。
+`<Suspense>` 允许在子组件完成加载前展示后备方案，为了不在等待组件加载的时候那么尴尬，可以将Route中的element设置为如下：
 
 ```
 <Suspense fallback={<Loading />}>
@@ -94,11 +94,40 @@ HashRouter
 </Route>
 ```
 
+为此可以编写一个简单的Loading组件来当等待组件的时候显示给用户
+
+```
+const Loading = () => (
+	<div> 
+		Loading...
+	</div> 
+)
+```
+
 
 
 ### `<Link />` & `<Navigate />`
 
-待学习。。。
+`<Link />`  类似于a标签，能够跳转到某个路由，跳转是基于当前url的，如果没有设置为`/page`的话，假如当前url为`/home`，则下面的link会跳转到`/home/page`
+
+```
+<Link to="page" >跳转</Link>
+```
+
+`<Navigate />` 能够重定向到某个路由，能够通过hook进行使用，`useNavigate`
+
+例子:
+
+```
+const navigate = useNavigate();
+navigate('/login');
+navigate('/login', {replace: true});
+
+// 组件方式
+<Navigate to='/login' />
+```
+
+
 
 
 
@@ -163,7 +192,7 @@ const App = () => {
 
 ### 实现编写routes数组循环嵌套路由
 
-编写一个这样的路由数组类型定义
+编写一个这样的路由数组类型定义，孩子属性就直接递归属性即可
 
 ```ts
 export interface IRouteProps {
@@ -229,24 +258,20 @@ export const routes: IRouteProps[] = [
 export const RouterLink = () => {
   const routerViews = (routes: IRouteProps[]) => {
     return routes.map((item: IRouteProps, index: number) => {
-      if (item.children) {
-        return (
-          <>
-            {item.redirect && (
-              <Route
-                key={index}
-                path={item.path}
-                element={<Navigate to={item.redirect} replace />}
-              />
-            )}
-            <Route key={index} path={item.path} element={item.element}>
-              {routerViews(item.children)}
-            </Route>
-          </>
-        );
-      } else {
-        return <Route key={index} path={item.path} element={item.element} />;
-      }
+      return (
+        <>
+          {item.redirect && (
+            <Route
+              key={index}
+              path={item.path}
+              element={<Navigate to={item.redirect} replace />}
+            />
+          )}
+          <Route key={index} path={item.path} element={item.element}>
+            {item.children && routerViews(item.children)}
+          </Route>
+        </>
+      );
     });
   };
 
@@ -265,29 +290,9 @@ export const RouterLink = () => {
 
 ![image.png](http://p0.meituan.net/csc/08379a04a9b0c7c3a3f9b612629ee61417281.png)
 
-
-
-#### 优化白屏等待
-
-为了不在等待组件加载的时候那么尴尬，可以将Route中的element设置为如下：
+也可以通过lazy来让组件在第一次被渲染之前延迟加载组件的代码
 
 ```
-<Suspense fallback={<Loading/>}><Component/></Suspense>
-```
-
-也就是
-
-```
-<Route path="path" element={<Suspense fallback={<Loading/>}><Component/></Suspense>} />
-```
-
-为此可以编写一个简单的Loading组件来当等待组件的时候显示给用户
-
-```
-const Loading = () => (
-	<div> 
-		Loading...
-	</div> 
-)
+const child = lazy(() => import('./child'))
 ```
 
