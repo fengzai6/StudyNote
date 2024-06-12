@@ -25,7 +25,7 @@ npm create vite@latest
 
 yarn create vite
 
-// 使用@可以来制定版本
+// 使用@可以来指定版本
 yarn create vite@4
 // 适用于node版本低不支持该编译器版本的情况
 ```
@@ -44,7 +44,7 @@ yarn create vite@4
 
 选择 typescript 作为我们的类型检查语言
 
-![image-20240607142627341](/Users/liufaqiang/Library/Application Support/typora-user-images/image-20240607142627341.png)
+![image.png](https://p0.meituan.net/csc/50feee821604738115a9bf65f984fc818739.png)
 
 然后就非常简单的初始化好了一个`react18` + `vite@5` + `typescript`项目啦
 
@@ -241,27 +241,27 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 src
 ├─ assets  //静态文件存放
 ├─ components  //公共组件存放
-│	 └─ xxx-xxx
-│	 	  └─ index.tsx
+│  └─ xxx-xxx
+│     └─ index.tsx
 ├─ pages // 页面
-│	 └─ xxx-xxx
-│	 	  ├─ index.tsx
-│	 	  ├─ hook.ts //自定义hooks
-│	 	  └─ props.ts //接口类型定义
+│  └─ xxx-xxx
+│     ├─ index.tsx
+│     ├─ hook.ts //自定义hooks
+│     └─ props.ts //接口类型定义
 ├─ router  //路由配置
-│	 └─ index.tsx
+│  └─ index.tsx
 ├─ services //接口配置
-│	 ├─ api //各个接口
-│	 │	├─ xxx-xxx
-│	 │	│	 └─ index.ts
-│	 │	└─ http-client.ts // 封装axios或者fetch等工具（添加拦截器等）
-│	 └─ dtos //数据传输对象类型定义
-│	 		├─ xxx-xxx
-│	 		│	 └─ index.ts
-│		  └─ public
-│		   	 └─ index.ts
+│  ├─ api //各个接口
+│  │	├─ xxx-xxx
+│  │	│	 └─ index.ts
+│  │	└─ http-client.ts // 封装axios或者fetch等工具（添加拦截器等）
+│  └─ dtos //数据传输对象类型定义
+│     ├─ xxx-xxx
+│     │	 └─ index.ts
+│     └─ public
+│      	 └─ index.ts
 └─ utils  // 工具函数
-	 └─ index.ts
+   └─ index.ts
 ```
 
 ### 路由配置
@@ -401,7 +401,7 @@ export const My = () => {
 
 2. 自动在修改标签名时同步另一个
 
-   ![image.png](https://p0.meituan.net/csc/b4b8228d0a64a107801e583389b9b4ad9397.png)
+![image.png](https://p0.meituan.net/csc/b4b8228d0a64a107801e583389b9b4ad9397.png)
 
 3. 单词翻译和单词检查
 
