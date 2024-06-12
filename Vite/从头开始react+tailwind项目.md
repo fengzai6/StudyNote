@@ -1,14 +1,22 @@
-## 使用Vite从头建立个基础react项目 + tailwind
+## 使用 Vite 从头建立个基础 react 项目 + tailwind
 
-⛱️ ——***目录*** ——🏖️
+⛱️ ——**_目录_** ——🏖️
 
-[TOC]
+- [使用 Vite 从头建立个基础 react 项目 + tailwind](#使用-vite-从头建立个基础-react-项目--tailwind)
+  - [一切的开始](#一切的开始)
+  - [tailwind 安装](#tailwind-安装)
+  - [设置@/来帮助导入文件或组件](#设置来帮助导入文件或组件)
+  - [代码清洗 \& 初始化目录结构](#代码清洗--初始化目录结构)
+  - [路由配置](#路由配置)
+    - [安装组件](#安装组件)
+  - [代码格式规范](#代码格式规范)
+  - [VScode 插件](#vscode-插件)
 
-------
+---
 
 ### 一切的开始
 
-前提环境node ; **结尾列出所用的一些vscode插件**；
+前提环境 node ; **结尾列出所用的一些 vscode 插件**；
 
 首先是`终端命令`简简单单初始化一个模版项目
 
@@ -22,19 +30,19 @@ yarn create vite@4
 // 适用于node版本低不支持该编译器版本的情况
 ```
 
-如下例子使用 `yarn` 进行，没有yarn？ 运行 `npm install -g yarn`
+如下例子使用 `yarn` 进行，没有 yarn？ 运行 `npm install -g yarn`
 
-创建 `react18` + `vite@5` + `typescript`  node环境需要>=18，如node环境小于，请用 `vite@4`
+创建 `react18` + `vite@5` + `typescript` node 环境需要>=18，如 node 环境小于，请用 `vite@4`
 
 运行 `yarn create vite` 提示输入项目名
 
 ![image.png](https://p0.meituan.net/csc/639a052b4132a28ebe075017c22a684114950.png)
 
-选择react框架
+选择 react 框架
 
 ![image.png](https://p0.meituan.net/csc/70d2f166b39f29f502dbdff7349508bf10111.png)
 
-选择typescript作为我们的类型检查语言
+选择 typescript 作为我们的类型检查语言
 
 ![image-20240607142627341](/Users/liufaqiang/Library/Application Support/typora-user-images/image-20240607142627341.png)
 
@@ -42,25 +50,25 @@ yarn create vite@4
 
 ![image.png](https://p0.meituan.net/csc/d2dc34adfeb096ead7ade7c4b37c59d74860.png)
 
-按照提示，先运行 `yarn` 安装依赖，然后运行 `yarn dev` 就可以运行了,可以看到程序运行在5173端口当中
+按照提示，先运行 `yarn` 安装依赖，然后运行 `yarn dev` 就可以运行了,可以看到程序运行在 5173 端口当中
 
 ![image.png](https://p0.meituan.net/csc/ed32136f61813d512564ac0050cc6d3267304.png)
 
 ### tailwind 安装
 
-1、安装Tailwind CSS, PostCSS 和 Autoprefixer
+1、安装 Tailwind CSS, PostCSS 和 Autoprefixer
 
 ```
 yarn add -D tailwindcss postcss autoprefixer
 ```
 
-2、生成Tailwind配置文件
+2、生成 Tailwind 配置文件
 
 ```
 npx tailwindcss init
 ```
 
-3.1、根目录新增一个postcss.config.js文件，将tailwindcss 和 autoprefixer 添加进去
+3.1、根目录新增一个 postcss.config.js 文件，将 tailwindcss 和 autoprefixer 添加进去
 
 ```js
 export default {
@@ -68,7 +76,7 @@ export default {
     tailwindcss: {},
     autoprefixer: {},
   },
-}
+};
 ```
 
 3.2、也可以添加其他的配置更加便利的生成，省去自行添加 如 `-p` `--ts`
@@ -79,7 +87,7 @@ npx tailwindcss init -p --ts
 
 这将生成`postcss.config.js`和 `tailwindcss.config.ts`
 
-4、当生成文件后，在 `tailwindcss.config` 中的content[]配置添加所需模版文件的路径
+4、当生成文件后，在 `tailwindcss.config` 中的 content[]配置添加所需模版文件的路径
 
 ```ts
 content[
@@ -88,7 +96,7 @@ content[
 ]
 ```
 
-5、在主要的css文件当中，如 `index.css` ，将Tailwind CSS指令放入该文件中
+5、在主要的 css 文件当中，如 `index.css` ，将 Tailwind CSS 指令放入该文件中
 
 ```css
 @tailwind base;
@@ -100,25 +108,21 @@ content[
 
 ![image.png](https://p0.meituan.net/csc/50b93f046d15623970ee79f085f98fb427736.png)
 
-这样tailwind就配置好了，可以在元素中直接使用了，如：
+这样 tailwind 就配置好了，可以在元素中直接使用了，如：
 
 ```html
-<div className="flex text-[16px] items-center justify-center">
-	Home
-</div>
+<div className="flex text-[16px] items-center justify-center">Home</div>
 ```
-
-
 
 ### 设置@/来帮助导入文件或组件
 
-首先需要添加node类型帮助ts识别
+首先需要添加 node 类型帮助 ts 识别
 
 ```
 yarn add @types/node
 ```
 
-***vite.config.ts*** 添加path.resolve
+**_vite.config.ts_** 添加 path.resolve
 
 ```ts
 import { defineConfig } from "vite";
@@ -135,7 +139,7 @@ export default defineConfig({
 });
 ```
 
-***tsconfig.json*** 添加配置 /* Config */ 部分
+**_tsconfig.json_** 添加配置 /_ Config _/ 部分
 
 ```json
 {
@@ -169,23 +173,20 @@ export default defineConfig({
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
-
 ```
-
-
 
 ### 代码清洗 & 初始化目录结构
 
-当使用vite生成的目录结构，有一些简单的demo代码在里面，可以让你简单体验该框架和构建器的代码，不过要进行开发的并不需要，所以需要将这些代码清洗一下
+当使用 vite 生成的目录结构，有一些简单的 demo 代码在里面，可以让你简单体验该框架和构建器的代码，不过要进行开发的并不需要，所以需要将这些代码清洗一下
 
-***index.css***
+**_index.css_**
 
 ```css
 // 将所有样式删除，如果需要可以留下字体相关的样式
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -195,7 +196,6 @@ code {
     monospace;
 }
 
-
 // 将所有元素的默认边距清除，并使用border-box告诉浏览器border和padding是包含在width中的，（可选：供不同理解的开发者进行选择布局计算方式）
 * {
   margin: 0;
@@ -204,7 +204,7 @@ code {
 }
 ```
 
-***App.tsx***
+**_App.tsx_**
 
 ```tsx
 // 将组件函数改为使用箭头函数的方式导出，未来也是如此
@@ -215,10 +215,9 @@ export const App = () => {
     </>
   );
 };
-
 ```
 
-***main.tsx***
+**_main.tsx_**
 
 ```tsx
 import React from "react";
@@ -233,8 +232,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   </React.StrictMode>
 );
 ```
-
-
 
 到现在就可以去编写自己的项目代码了
 
@@ -267,8 +264,6 @@ src
 	 └─ index.ts
 ```
 
-
-
 ### 路由配置
 
 基本知识笔记：[StudyNote/react-router6.md](https://github.com/fengzai6/StudyNote/blob/main/240513-reactRouter6-组件传值/react-router6.md)
@@ -281,7 +276,7 @@ npm install react-router-dom
 yarn add react-router-dom
 ```
 
-***main.tsx***  在该文件中给App使用 BrowserRouter
+**_main.tsx_** 在该文件中给 App 使用 BrowserRouter
 
 ```tsx
 import React from "react";
@@ -300,7 +295,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 );
 ```
 
-***router/props.ts***   路由数组格式定义
+**_router/props.ts_** 路由数组格式定义
 
 ```ts
 export interface IRouteProps {
@@ -312,7 +307,7 @@ export interface IRouteProps {
 }
 ```
 
-***router/index.tsx***  根据定义编写**routes数组**和**RouterViews组件**
+**_router/index.tsx_** 根据定义编写**routes 数组**和**RouterViews 组件**
 
 ```tsx
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -364,7 +359,7 @@ export const RouterViews = () => {
 };
 ```
 
-***pages/home/index.tsx***   每个有children的父组件都要记得放置 `<Outlet />`
+**_pages/home/index.tsx_** 每个有 children 的父组件都要记得放置 `<Outlet />`
 
 ```tsx
 import { Outlet } from "react-router-dom";
@@ -373,14 +368,14 @@ export const Home = () => {
   return (
     <>
       <div>Home</div>
-    	{/* 该Home的孩子会在Outlet中显示 没有设置则不会显示My */}
+      {/* 该Home的孩子会在Outlet中显示 没有设置则不会显示My */}
       <Outlet />
     </>
   );
 };
 ```
 
-***pages/my/index.tsx***
+**_pages/my/index.tsx_**
 
 ```tsx
 export const My = () => {
@@ -392,19 +387,13 @@ export const My = () => {
 
 ![image.png](https://p0.meituan.net/csc/5c8f793fcc10ba904adc3e5c89dddffe5346.png)
 
-
-
-**🎉基本就是这样，接下来就是自由编写代码，该流程日后发现不足将会补充🎉**
-
-
+**🎉 基本就是这样，接下来就是自由编写代码，该流程日后发现不足将会补充 🎉**
 
 ### 代码格式规范
 
 [React 编码约定](https://github.com/fengzai6/StudyNote/blob/main/coding-conventions.md)
 
-
-
-### VScode插件
+### VScode 插件
 
 1. 自动帮你输出关闭标签
 
@@ -418,11 +407,11 @@ export const My = () => {
 
 ![image.png](https://p0.meituan.net/csc/51252e00a1c88945b5fde547b61f73ec20613.png)
 
-4. 必备格式和git工具
+4. 必备格式和 git 工具
 
 ![image.png](https://p0.meituan.net/csc/1e8926ededda6bccdaba8458f6024cbb32442.png)
 
-5. 只要alt+w就可以为选中的内容添加标签包起来！
+5. 只要 alt+w 就可以为选中的内容添加标签包起来！
 
 ![image.png](https://p0.meituan.net/csc/e55733bc9c25c47ee879a37b618b98009776.png)
 
@@ -430,7 +419,7 @@ export const My = () => {
 
 ![image.png](https://p0.meituan.net/csc/aec467cd53ad003f8652e380124d5aa29333.png)
 
-7. 很好用的px to rem工具
+7. 很好用的 px to rem 工具
 
 ![image.png](https://p1.meituan.net/csc/a5f531769c410e1429f8dbc9f7ce144913339.png)
 
