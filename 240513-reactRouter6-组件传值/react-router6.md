@@ -79,7 +79,7 @@ HashRouter
 
 `<Suspense>` 允许在子组件完成加载前展示后备方案，为了不在等待组件加载的时候那么尴尬，可以将Route中的element设置为如下：
 
-```
+```tsx
 <Suspense fallback={<Loading />}>
   <MyComponent />
 </Suspense>
@@ -87,7 +87,7 @@ HashRouter
 
 可以将它放入Route中的element中进行使用
 
-```
+```tsx
 <Route path={/home} element={
 	<Suspense fallback={<Loading/>}><Component/></Suspense>
 }>
@@ -96,7 +96,7 @@ HashRouter
 
 为此可以编写一个简单的Loading组件来当等待组件的时候显示给用户
 
-```
+```tsx
 const Loading = () => (
 	<div> 
 		Loading...
@@ -110,7 +110,7 @@ const Loading = () => (
 
 `<Link />`  类似于a标签，能够跳转到某个路由，跳转是基于当前url的，如果没有设置为`/page`的话，假如当前url为`/home`，则下面的link会跳转到`/home/page`
 
-```
+```tsx
 <Link to="page" >跳转</Link>
 ```
 
@@ -118,7 +118,7 @@ const Loading = () => (
 
 例子:
 
-```
+```tsx
 const navigate = useNavigate();
 navigate('/login');
 navigate('/login', {replace: true});
@@ -141,7 +141,7 @@ navigate('/login', {replace: true});
 
 外层组件
 
-```
+```tsx
 import { Outlet } from "react-router-dom";
 
 const ParentComponent = () => {
@@ -156,7 +156,7 @@ const ParentComponent = () => {
 
 内嵌组件
 
-```
+```tsx
 const ChildComponent = () => {
   return (
     <div>
@@ -168,7 +168,7 @@ const ChildComponent = () => {
 
 路由配置
 
-```
+```tsx
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { ParentComponent, ChildComponent } from "./component"
@@ -194,7 +194,7 @@ const App = () => {
 
 编写一个这样的路由数组类型定义，孩子属性就直接递归属性即可
 
-```ts
+```tsx
 export interface IRouteProps {
   path: string;
   name: string;
@@ -255,7 +255,7 @@ export const routes: IRouteProps[] = [
 接下来编写路由配置，在组件中**将routes传入routerVIews函数**，函数将进行循环遍历路由配置，并当有children路由的时候进行判断，以便递归循环，当然，也可以设置redirect进行重定向操作，避免只显示父组件而没有子组件的尴尬情况
 
 ```tsx
-export const RouterLink = () => {
+export const RouterViews = () => {
   const routerViews = (routes: IRouteProps[]) => {
     return routes.map((item: IRouteProps, index: number) => {
       return (
@@ -277,8 +277,8 @@ export const RouterLink = () => {
 
   return (
     <Routes>
-      {routerViews(routes)}
       <Route path="*" element={<Navigate to="/grocery" replace />} />
+      {routerViews(routes)}
     </Routes>
   );
 };
@@ -294,5 +294,22 @@ export const RouterLink = () => {
 
 ```
 const child = lazy(() => import('./child'))
+```
+
+#### 使用
+
+```tsx
+import { RouterViews } from "./router";
+import { useAction } from "./AppHook";
+
+export const App = () => {
+  const { isLoaded } = useAction();
+
+  return isLoaded ? (
+    <RouterViews />
+  ) : (
+    <></>
+  );
+};
 ```
 
