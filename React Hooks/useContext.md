@@ -99,3 +99,24 @@ export const Message = () => {
 
 
 所以使用useContext，能帮助开发的时候，不需要将某些值通过props一层层传递下去，这样使得代码更加简洁可维护
+
+
+
+### 传入状态到Context中
+
+可以将state传入到Context当中，子组件接受到的值就可以根据需要进行改变
+
+比如创建个 `homeContext` ，将类型设置为状态和设置状态的方法
+
+```
+import { createContext } from "react";
+
+export const homeContext = createContext<{
+  state: string;
+  setState: React.Dispatch<React.SetStateAction<string>>;
+}>({
+  state: "default",
+  setState: () => {},
+});
+```
+

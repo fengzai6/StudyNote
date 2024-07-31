@@ -49,6 +49,52 @@ const filterTree = (data: ITreeData[], treeSearch: string) => {
 
   return { filteredKeys, filteredTree };
 };
+
+// 简单优化
+const filterTreeb = <T extends ITreeData>(
+    data: T[],
+    treeSearch: string
+  ): {
+    filteredKeys: React.Key[];
+    filteredTree: T[];
+  } => {
+    const filteredKeys = new Set<React.Key>();
+
+    const filteredTree: T[] = [];
+
+    const searchLower = treeSearch.toLowerCase();
+
+    const hasSameKey = (data: T[], key: React.Key): boolean =>
+        data.some(
+          (item) =>
+            item.key === key ||
+            (item.children && hasSameKey(item.children as T[], key))
+        );
+
+    const filterNodes = (nodes: T[]) => {
+      nodes.forEach((node) => {
+        const isMatch = String(node.title).toLowerCase().includes(searchLower);
+
+        if (
+          isMatch &&
+          !filteredKeys.has(node.key) &&
+          !hasSameKey(filteredTree, node.key)
+        ) {
+          filteredKeys.add(node.key);
+
+          filteredTree.push(node);
+        }
+
+        node.children && filterNodes(node.children as T[]);
+      });
+    };
+
+    filterNodes(data);
+
+    return { filteredKeys: Array.from(filteredKeys), filteredTree };
+  };
+  
+     
 ```
 
 #### 解释

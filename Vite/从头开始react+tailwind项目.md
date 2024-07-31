@@ -54,6 +54,18 @@ yarn create vite@4
 
 ![image.png](https://p0.meituan.net/csc/ed32136f61813d512564ac0050cc6d3267304.png)
 
+### 常用库
+
+```
+yarn add antd
+yarn add ahooks
+yarn add @ant-design/icons
+yarn add react-router-dom
+yarn add antd @ant-design/icons ahooks react-router-dom
+```
+
+
+
 ### tailwind 安装
 
 1、安装 Tailwind CSS, PostCSS 和 Autoprefixer
@@ -94,6 +106,9 @@ content[
  "./index.html",
  "./src/**/*.{js,ts,jsx,tsx}",
 ]
+corePlugins: {
+ preflight: false,
+},
 ```
 
 5、在主要的 css 文件当中，如 `index.css` ，将 Tailwind CSS 指令放入该文件中
@@ -311,6 +326,7 @@ export interface IRouteProps {
 
 ```tsx
 import { Routes, Route, Navigate } from "react-router-dom";
+import { Fragment } from "react/jsx-runtime";
 import { IRouteProps } from "./props";
 
 // 简单建了两个简单的组件，稍后给出
@@ -336,16 +352,16 @@ const routes: IRouteProps[] = [
 export const RouterViews = () => {
   // 路由循环递归逻辑
   const routerViews = (routes: IRouteProps[]) => {
-    return routes.map((item: IRouteProps, index: number) => {
-      return (
-        <>
-          {item.index && <Route index element={item.element} />}
-          <Route key={index} path={item.path} element={item.element}>
-            {item.children && routerViews(item.children)}
-          </Route>
-        </>
-      );
-    });
+    return routes.map((item: IRouteProps, index: number) => (
+      <Fragment key={index}>
+        {item.index && (
+          <Route index element={<Navigate to={item.path} replace />} />
+        )}
+        <Route path={item.path} element={item.element}>
+          {item.children && routerViews(item.children)}
+        </Route>
+      </Fragment>
+    ));
   };
 
   return (
