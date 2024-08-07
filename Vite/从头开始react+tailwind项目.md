@@ -61,6 +61,7 @@ yarn add antd
 yarn add ahooks
 yarn add @ant-design/icons
 yarn add react-router-dom
+
 yarn add antd @ant-design/icons ahooks react-router-dom
 ```
 
@@ -71,7 +72,7 @@ yarn add antd @ant-design/icons ahooks react-router-dom
 1、安装 Tailwind CSS, PostCSS 和 Autoprefixer
 
 ```
-yarn add -D tailwindcss postcss autoprefixer
+yarn add -D tailwindcss postcss autoprefixer 
 ```
 
 2、生成 Tailwind 配置文件
@@ -102,10 +103,7 @@ npx tailwindcss init -p --ts
 4、当生成文件后，在 `tailwindcss.config` 中的 content[]配置添加所需模版文件的路径
 
 ```ts
-content[
- "./index.html",
- "./src/**/*.{js,ts,jsx,tsx}",
-]
+content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 corePlugins: {
  preflight: false,
 },
@@ -134,7 +132,7 @@ corePlugins: {
 首先需要添加 node 类型帮助 ts 识别
 
 ```
-yarn add @types/node
+yarn add -D @types/node
 ```
 
 **_vite.config.ts_** 添加 path.resolve
@@ -214,7 +212,7 @@ code {
 // 将所有元素的默认边距清除，并使用border-box告诉浏览器border和padding是包含在width中的，（可选：供不同理解的开发者进行选择布局计算方式）
 * {
   margin: 0;
-  padding: 0;
+  /* padding: 0; */
   box-sizing: border-box;
 }
 ```
@@ -366,10 +364,10 @@ export const RouterViews = () => {
 
   return (
     <Routes>
-      {/* 应为404页面，暂时未编写 */}
-      <Route path="*" element={<Navigate to="/" replace />} />
       {/* 带入路由数组进行处理 */}
       {routerViews(routes)}
+      {/* 应为404页面，暂时未编写 */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };
