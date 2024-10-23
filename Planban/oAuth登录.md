@@ -1,5 +1,7 @@
 ## oAuth登录GitHub
 
+本次笔记对应demo：[MyReactDemo](https://github.com/fengzai6/MyReactDemo)  对应目录为 `/src/demo/github`
+
 ### 一、第三方登录的原理
 
 所谓第三方登录，实质就是 OAuth 授权。用户想要登录 A 网站，A 网站让用户提供第三方网站的数据，证明自己的身份。获取第三方网站的身份数据，就需要 OAuth 授权。
