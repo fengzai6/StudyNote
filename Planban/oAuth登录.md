@@ -49,7 +49,7 @@ export const GitHubDemo = () => {
 
   const redirectUri = "http://localhost:3000/oauth/github/callback";
 
-  const scopes = ["user", "repo"];
+  const scopes = ["read:user", "repo"];
 
   const oAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
     " "
@@ -77,7 +77,7 @@ scopes是该次登录所向用户请求的权限，示例中所请求的为用�
 跳转回来的 URL 会是下面的样子
 
 ```
-http://localhost:3000/oauth/github/redirect/?code=ace5dc948a88de306384
+http://localhost:3000/oauth/github/callback?code=ace5dc948a88de306384
 ```
 
 那么在客户端的callback代码中就需要拿到这个code
@@ -93,7 +93,8 @@ const code = new URLSearchParams(search).get("code");
 
 ```tsx
 const getAccessToken = async () => {
-    // 向后端发送请求
+  // 向后端发送请求
+  try {
     const res = await axios.post(`http://localhost:8080/api/oauth/github`, {
       code: code,
     });
@@ -103,7 +104,14 @@ const getAccessToken = async () => {
     const data = await res.data;
 
     setAccessToken(data.access_token);
-  };
+  } catch (error: any) {
+    if (error.response) {
+      message.error(error.response.data.message);
+    } else {
+      message.error("server服务可能未运行");
+    }
+  }
+};
 ```
 
 #### 3、后端实现
@@ -277,15 +285,23 @@ export const GitHubCallback = () => {
 
   const getAccessToken = async () => {
     // 向后端发送请求
-    const res = await axios.post(`http://localhost:8080/api/oauth/github`, {
-      code: code,
-    });
+    try {
+      const res = await axios.post(`http://localhost:8080/api/oauth/github`, {
+        code: code,
+      });
 
-    console.log(res);
+      console.log(res);
 
-    const data = await res.data;
+      const data = await res.data;
 
-    setAccessToken(data.access_token);
+      setAccessToken(data.access_token);
+    } catch (error: any) {
+      if (error.response) {
+        message.error(error.response.data.message);
+      } else {
+        message.error("server服务可能未运行");
+      }
+    }
   };
 
   const getUser = async () => {
