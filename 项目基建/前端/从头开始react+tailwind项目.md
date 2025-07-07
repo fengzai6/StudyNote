@@ -1,4 +1,4 @@
-## 使用 Vite 从头建立个基础 react 项目 + tailwind
+## 使用 Vite 从头建立个基础 react 项目 + tailwind/shadcn
 
 ⛱️ ——**_目录_** ——🏖️
 
@@ -14,7 +14,7 @@
 
 ---
 
-### 一切的开始
+### 一切的开始：vite
 
 前提环境 node ; **结尾列出所用的一些 vscode 插件**；
 
@@ -42,11 +42,11 @@ yarn create vite@4
 
 ![image.png](https://p0.meituan.net/csc/70d2f166b39f29f502dbdff7349508bf10111.png)
 
-选择 typescript 作为我们的类型检查语言
+选择 typescript + swc 作为我们的类型检查语言 （swc 更快的热更新）
 
 ![image.png](https://p0.meituan.net/csc/50feee821604738115a9bf65f984fc818739.png)
 
-然后就非常简单的初始化好了一个`react18` + `vite@5` + `typescript`项目啦
+然后就非常简单的初始化好了一个`react` + `vite` + `typescript`项目啦
 
 ![image.png](https://p0.meituan.net/csc/d2dc34adfeb096ead7ade7c4b37c59d74860.png)
 
@@ -54,20 +54,39 @@ yarn create vite@4
 
 ![image.png](https://p0.meituan.net/csc/ed32136f61813d512564ac0050cc6d3267304.png)
 
-### 常用库
 
+
+### tailwind 安装 
+
+- #### 新版
+
+1、安装
+
+```bash
+yarn add tailwindcss @tailwindcss/vite
 ```
-yarn add antd
-yarn add ahooks
-yarn add @ant-design/icons
-yarn add react-router-dom
 
-yarn add antd @ant-design/icons ahooks react-router-dom
+2、配置vite插件
+
+```ts
+import { defineConfig } from 'vite'
+import tailwindcss from '@tailwindcss/vite'
+export default defineConfig({
+  plugins: [
+    tailwindcss(),
+  ],
+})
+```
+
+3、在 index.css 导入 tailwindcss
+
+```css
+@import "tailwindcss";
 ```
 
 
 
-### tailwind 安装
+- #### 旧版
 
 1、安装 Tailwind CSS, PostCSS 和 Autoprefixer
 
@@ -127,15 +146,64 @@ corePlugins: {
 <div className="flex text-[16px] items-center justify-center">Home</div>
 ```
 
+
+
 ### 设置@/来帮助导入文件或组件
 
-首先需要添加 node 类型帮助 ts 识别
+#### 编辑 tsconfig.json 文件
+
+当前版本的 Vite 将 TypeScript 配置分为三个文件，其中两个需要编辑。将 `baseUrl` 和 `paths` 属性添加到 `compilerOptions` 部分的 `tsconfig.json` 和 `sconfig.json` 中。 `tsconfig.app.json` 文件：
+
+tsconfig.json
+
+```json
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+#### 编辑 tsconfig.app.json 文件
+
+在  `tsconfig.app.json` 文件中添加以下代码，以解析路径：
+
+tsconfig.app.json
+
+```json
+{
+  "compilerOptions": {
+    // ...
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+    // ...
+  }
+}
+```
+
+#### 根据需要添加 node 类型帮助 ts 识别
 
 ```
 yarn add -D @types/node
 ```
 
-**_vite.config.ts_** 添加 path.resolve
+#### **_vite.config.ts_** 添加 path.resolve
 
 ```ts
 import { defineConfig } from "vite";
@@ -152,24 +220,12 @@ export default defineConfig({
 });
 ```
 
-**_tsconfig.json_** 添加配置 /_ Config _/ 部分
+#### **_tsconfig.json_** 添加配置 /_ Config _/ 部分 （旧）
 
 ```json
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
+    // ...
 
     /* Linting */
     "strict": true,
@@ -187,6 +243,35 @@ export default defineConfig({
   "references": [{ "path": "./tsconfig.node.json" }]
 }
 ```
+
+
+
+### UI 库 antd/shadcn
+
+```bash
+yarn add antd
+yarn add @ant-design/icons
+
+# shadcn
+yarn shadcn@latest init
+# 根据需要添加组件
+yarn shadcn@latest add button
+```
+
+
+
+### 工具库
+
+```bash
+yarn add ahooks
+yarn add 
+# 旧版
+yarn add react-router-dom
+# 新版
+yarn add react-router
+```
+
+
 
 ### 代码清洗 & 初始化目录结构
 
