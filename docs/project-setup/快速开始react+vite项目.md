@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 ## 快速开始 Vite + React + Tailwind/Shadcn 等 （2025/07/07）
 
 ### 需要环境
@@ -14,9 +18,7 @@ yarn create vite
 
 根据后续提示输入项目名、框架选择、类型语言：(`name`, `react`, `ts+swc`)
 
-
-
-### tailwind 
+### tailwind
 
 1、添加
 
@@ -24,16 +26,14 @@ yarn create vite
 yarn add tailwindcss @tailwindcss/vite
 ```
 
-2、配置vite插件
+2、配置 vite 插件
 
 ```ts
-import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from "vite";
+import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
-  plugins: [
-    tailwindcss(),
-  ],
-})
+  plugins: [tailwindcss()],
+});
 ```
 
 3、在 index.css 导入 tailwindcss
@@ -42,9 +42,7 @@ export default defineConfig({
 @import "tailwindcss";
 ```
 
-
-
-### 设置@/  (shadcn 必要)
+### 设置@/ (shadcn 必要)
 
 #### 添加 node 类型帮助 ts 识别
 
@@ -77,9 +75,7 @@ yarn add -D @types/node
     // ...
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   }
 }
@@ -88,11 +84,11 @@ yarn add -D @types/node
 #### vite.config.ts 添加 path.resolve
 
 ```ts
-import path from "path"
-import tailwindcss from "@tailwindcss/vite"
-import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
- 
+import path from "path";
+import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
@@ -101,10 +97,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-})
+});
 ```
-
-
 
 ### UI 库 antd/shadcn
 
@@ -117,8 +111,6 @@ yarn shadcn@latest init
 # 根据需要添加组件
 yarn shadcn@latest add button
 ```
-
-
 
 ### 工具库
 
@@ -133,8 +125,6 @@ yarn add zustand
 yarn add react-router
 ```
 
-
-
 ### 其他库
 
 ```bash
@@ -147,8 +137,6 @@ yarn add dayjs
 # icons
 yarn add react-icons
 ```
-
-
 
 ### 代码清洗 & 初始化目录结构
 

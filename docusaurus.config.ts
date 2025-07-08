@@ -22,7 +22,7 @@ const config: Config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "nacho", // GitHub用户名
+  organizationName: "fengzai6", // GitHub用户名
   projectName: "StudyNote", // 仓库名
 
   onBrokenLinks: "throw",
