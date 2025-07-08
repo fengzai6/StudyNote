@@ -26,6 +26,21 @@ yarn create vite
 yarn add tailwindcss @tailwindcss/vite
 ```
 
+可选：prettier 插件
+
+```bash
+yarn add -D prettier prettier-plugin-tailwindcss
+```
+
+```
+// .prettierrc
+{
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindStylesheet": "./src/index.css",
+  "tailwindFunctions": ["cn"]
+}
+```
+
 2、配置 vite 插件
 
 ```ts
@@ -102,14 +117,19 @@ export default defineConfig({
 
 ### UI 库 antd/shadcn
 
+[antd 官网](https://ant-design.antgroup.com/components/overview-cn/)
+[shadcn 中文网](https://www.shadcn.com.cn/)
+
+运行 shadcn 之前最好先清理代码，移步[代码清洗 & 初始化目录结构](#代码清洗--初始化目录结构)
+
 ```bash
 yarn add antd
 yarn add @ant-design/icons
 
 # shadcn
-yarn shadcn@latest init
+npx shadcn@latest init
 # 根据需要添加组件
-yarn shadcn@latest add button
+npx shadcn@latest add button
 ```
 
 ### 工具库
