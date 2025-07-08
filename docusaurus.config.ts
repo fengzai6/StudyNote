@@ -91,14 +91,6 @@ const config: Config = {
               label: "项目搭建",
               to: "/docs/project-setup/从头开始react+tailwind项目",
             },
-            {
-              label: "React 进阶",
-              to: "/docs/react/intro",
-            },
-            {
-              label: "TypeScript",
-              to: "/docs/typescript/intro",
-            },
           ],
         },
         {
