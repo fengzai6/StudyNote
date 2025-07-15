@@ -1,4 +1,4 @@
-## JavaScript 的性能优化
+# JavaScript 的性能优化
 
 性能优化其实不算是后天去实现的，而是在编写代码的时候，就应该有相应的习惯策略去处理
 
@@ -11,24 +11,32 @@ https://ysx.cosine.ren/optimizing-javascript-translate
 ```ts
 // No
 enum Position {
-  TOP    = 'TOP',
-  BOTTOM = 'BOTTOM',
+  TOP = "TOP",
+  BOTTOM = "BOTTOM",
 }
 
 // Yeppers
 enum Position {
-  TOP,    // = 0
+  TOP, // = 0
   BOTTOM, // = 1
 }
 ```
-
-
 
 让枚举保持象征性，避免去赋予值
 
 https://yazanalaboudi.dev/in-defence-of-typescript-enums
 
+::: warning
+在 typescript 5.8 开始，不建议使用枚举，而是使用 const as const 来代替
 
+```ts
+const Position = {
+  TOP: "TOP",
+  BOTTOM: "BOTTOM",
+} as const;
+```
+
+:::
 
 ## 2、保持对象的形状和属性类型
 

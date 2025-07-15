@@ -1,6 +1,17 @@
-## enum 枚举
+# enum 枚举
 
 枚举（enum）可以为一组数值定义一个友好的名字，使用枚举能够让代码更加清晰易懂，增强代码的可读性和维护性，并且枚举成员就成为了类型
+
+::: warning
+在 typescript 5.8 开始，不建议使用枚举，而是使用 const as const 来代替
+:::
+
+```ts
+const Position = {
+  TOP: "TOP",
+  BOTTOM: "BOTTOM",
+} as const;
+```
 
 #### 1、基本使用
 
@@ -13,7 +24,7 @@ enum Direction {
 }
 ```
 
-在默认情况下，枚举的成员会被赋值从0开始的数字，也可以定义开始值，对Up进行初始化为1，则其他的成员会从1开始增长
+在默认情况下，枚举的成员会被赋值从 0 开始的数字，也可以定义开始值，对 Up 进行初始化为 1，则其他的成员会从 1 开始增长
 
 #### 2、字符串枚举
 
@@ -65,4 +76,3 @@ const enum Direction {
 
 let directions = [Direction.Up, Direction.Down, Direction.Left, Direction.Right];
 ```
-

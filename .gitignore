@@ -3,6 +3,9 @@
 
 # Production
 /build
+cache
+dist
+.temp
 
 # Generated files
 .docusaurus
