@@ -2,11 +2,23 @@ import { DefaultTheme, defineConfig } from "vitepress";
 
 const nav: DefaultTheme.NavItem[] = [
   { text: "首页", link: "/" },
-  { text: "笔记", link: "/notes/intro" },
+  {
+    text: "笔记",
+    items: [
+      {
+        text: "main",
+        link: "/notes/intro",
+      },
+      {
+        text: "propmt",
+        link: "/notes/propmt/翻译",
+      },
+    ],
+  },
   { text: "代码片段", link: "/code-snippets/try-catch" },
 ];
 
-const sidebar: DefaultTheme.SidebarMulti = {
+const mainNotes: DefaultTheme.SidebarMulti = {
   "/notes/": [
     { text: "介绍", link: "/notes/intro" },
     {
@@ -144,6 +156,15 @@ const sidebar: DefaultTheme.SidebarMulti = {
   ],
 };
 
+const propmtNotes: DefaultTheme.SidebarMulti = {
+  "/notes/propmt/": [
+    {
+      text: "AI Prompt",
+      items: [{ text: "翻译", link: "/notes/propmt/翻译" }],
+    },
+  ],
+};
+
 const codeSnippets: DefaultTheme.SidebarMulti = {
   "/code-snippets/": [
     {
@@ -162,8 +183,13 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav,
     sidebar: {
-      ...sidebar,
+      ...mainNotes,
+      ...propmtNotes,
       ...codeSnippets,
+    },
+
+    search: {
+      provider: "local",
     },
 
     socialLinks: [
@@ -175,9 +201,21 @@ export default defineConfig({
       text: "在 GitHub 上编辑此页面",
     },
 
+    lastUpdated: {
+      text: "更新时间",
+      formatOptions: {
+        dateStyle: "long",
+        timeStyle: "short",
+      },
+    },
+
     footer: {
       message: "基于 MIT 许可发布",
       copyright: `Copyright © 2024-${new Date().getFullYear()} nacho`,
     },
   },
+
+  head: [
+    ["link", { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
+  ],
 });

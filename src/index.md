@@ -8,7 +8,7 @@ hero:
   actions:
     - theme: brand
       text: 开始阅读文档
-      link: /intro
+      link: /notes/intro
 
 features:
   - title: React 实践
