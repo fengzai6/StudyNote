@@ -51,7 +51,10 @@ const mainNotes: DefaultTheme.SidebarMulti = {
     {
       text: "性能优化",
       collapsed: false,
-      items: [{ text: "js", link: "/notes/performance/js" }],
+      items: [
+        { text: "js", link: "/notes/performance/js" },
+        { text: "web", link: "/notes/performance/web" },
+      ],
     },
     {
       text: "React",
