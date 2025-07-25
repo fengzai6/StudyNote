@@ -53,7 +53,7 @@ const mainNotes: DefaultTheme.SidebarMulti = {
       collapsed: false,
       items: [
         { text: "js", link: "/notes/performance/js" },
-        { text: "web", link: "/notes/performance/web" },
+        { text: "打包优化", link: "/notes/performance/打包优化" },
       ],
     },
     {
@@ -123,6 +123,14 @@ const mainNotes: DefaultTheme.SidebarMulti = {
         { text: "react拖拽库", link: "/notes/tools/react拖拽库" },
         { text: "终端进度条", link: "/notes/tools/终端进度条" },
         { text: "虚拟列表", link: "/notes/tools/虚拟列表" },
+      ],
+    },
+    {
+      text: "JavaScript",
+      collapsed: true,
+      items: [
+        { text: "类与单例模式", link: "/notes/javascript/class-singleton" },
+        { text: "立即执行函数和工厂", link: "/notes/javascript/iife-factory" },
       ],
     },
     {
