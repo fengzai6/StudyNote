@@ -54,6 +54,7 @@ const mainNotes: DefaultTheme.SidebarMulti = {
       items: [
         { text: "js", link: "/notes/performance/js" },
         { text: "打包优化", link: "/notes/performance/打包优化" },
+        { text: "搜索优化", link: "/notes/performance/搜索优化" },
       ],
     },
     {
@@ -131,6 +132,7 @@ const mainNotes: DefaultTheme.SidebarMulti = {
       items: [
         { text: "类与单例模式", link: "/notes/javascript/class-singleton" },
         { text: "立即执行函数和工厂", link: "/notes/javascript/iife-factory" },
+        { text: "定时器", link: "/notes/javascript/定时器" },
       ],
     },
     {
@@ -153,7 +155,6 @@ const mainNotes: DefaultTheme.SidebarMulti = {
       items: [
         { text: "CICD", link: "/notes/dev-ops/CICD" },
         { text: "DevOps", link: "/notes/dev-ops/DevOps" },
-        { text: "levi", link: "/notes/dev-ops/levi" },
       ],
     },
     {
@@ -171,7 +172,11 @@ const propmtNotes: DefaultTheme.SidebarMulti = {
   "/notes/propmt/": [
     {
       text: "AI Prompt",
-      items: [{ text: "翻译", link: "/notes/propmt/翻译" }],
+      items: [
+        { text: "翻译", link: "/notes/propmt/翻译" },
+        { text: "插件系统", link: "/notes/propmt/插件系统" },
+        { text: "AI开发", link: "/notes/propmt/AI开发" },
+      ],
     },
   ],
 };
@@ -180,7 +185,13 @@ const codeSnippets: DefaultTheme.SidebarMulti = {
   "/code-snippets/": [
     {
       text: "代码片段",
-      items: [{ text: "tryCatch", link: "/code-snippets/try-catch" }],
+      items: [
+        { text: "tryCatch", link: "/code-snippets/try-catch" },
+        { text: "http-status", link: "/code-snippets/http-status" },
+        { text: "搜索", link: "/code-snippets/搜索" },
+        { text: "useObjState", link: "/code-snippets/useObjState" },
+        { text: "css暗黑模式", link: "/code-snippets/CSS暗黑模式" },
+      ],
     },
   ],
 };

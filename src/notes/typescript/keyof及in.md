@@ -1,6 +1,6 @@
 ## keyof 及 in
 
-`keyof`：能够用于取interface的键后保存为联合类型
+`keyof`：能够用于取 interface 的键后保存为联合类型
 
 ```
 interface IUser {
@@ -11,6 +11,17 @@ interface IUser {
 type keyofUser = keyof Iuser;
 
 // keyofUser = "name" | "age"
+```
+
+### update "State" with k & v
+
+```ts
+const updateDto = useMemoizedFn((k: keyof IProps, v: IProps[keyof IProps]) => {
+  setDto((prev) => ({
+    ...prev,
+    [k]: v,
+  }));
+});
 ```
 
 `in` : 取联合类型的值，主要用于数组和对象的构建
@@ -27,7 +38,7 @@ type TUser = {
 }
 ```
 
-如 
+如
 
 ```
 interface Todo {
@@ -47,4 +58,3 @@ const getValue = <T extends Todo, K extends keyof T>(obj: T, key: K ): T[K] => {
   return obj[key];
 }
 ```
-
