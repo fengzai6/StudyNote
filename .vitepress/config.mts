@@ -176,6 +176,7 @@ const propmtNotes: DefaultTheme.SidebarMulti = {
         { text: "翻译", link: "/notes/propmt/翻译" },
         { text: "插件系统", link: "/notes/propmt/插件系统" },
         { text: "AI开发", link: "/notes/propmt/AI开发" },
+        { text: "图像生成提示词", link: "/notes/propmt/图像生成提示词" },
       ],
     },
   ],
