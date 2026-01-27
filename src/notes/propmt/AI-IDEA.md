@@ -21,6 +21,7 @@ inclusion: always
 -   **常量**: UPPER_CASE
 -   **类型**: PascalCase
 -   **接口**: `I` + PascalCase (如 `IUser`)
+-   **组件接口**: 必须以 `Props` 结尾 (如 `IButtonProps`, `IModalProps`)
 
 ### 组件与文件结构
 -   **组件封装**: 对于重复出现的代码，应尽可能封装成通用组件或者 hook。
@@ -35,6 +36,7 @@ inclusion: always
 -   **路由**: 在新版中，react-router 已经将 react-router-dom 合并到 react-router 中，请使用该包进行路由管理。
 -   **状态管理**: 当使用 zustand 中的多个状态时，使用 `useShallow` 进行状态浅比较获取，避免不必要的 re-render。
 -   **性能优化**: 如果项目使用了 react-compiler，无需手动使用 `memo`, `useCallback` 等，编译器会自动处理。
+-   **代码结构**: React 组件代码必须遵循严格的顺序：state（状态定义） => function（函数定义） => useEffect（副作用处理）
 
 ## 3. 样式与 UI 还原 (Styling & UI Implementation)
 
