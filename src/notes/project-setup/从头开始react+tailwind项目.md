@@ -15,7 +15,9 @@ sidebar_position: 2
     - [根据需要添加 node 类型帮助 ts 识别](#根据需要添加-node-类型帮助-ts-识别)
     - [**_vite.config.ts_** 添加 path.resolve](#viteconfigts-添加-pathresolve)
     - [**_tsconfig.json_** 添加配置 /\_ Config \_/ 部分 （旧）](#tsconfigjson-添加配置-_-config-_-部分-旧)
+    - [配置 cn 函数](#配置-cn-函数)
   - [UI 库 antd/shadcn](#ui-库-antdshadcn)
+    - [antd 和 Tailwind CSS 一起使用](#antd-和-tailwind-css-一起使用)
   - [工具库](#工具库)
   - [代码清洗 \& 初始化目录结构](#代码清洗--初始化目录结构)
   - [路由配置](#路由配置)
@@ -255,6 +257,25 @@ export default defineConfig({
 }
 ```
 
+#### 配置 cn 函数
+
+安装依赖：
+
+```bash
+yarn add clsx tailwind-merge
+```
+
+新增 `src/utils/cn.ts`
+
+```ts
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
 
 
 ### UI 库 antd/shadcn
@@ -269,18 +290,64 @@ yarn shadcn@latest init
 yarn shadcn@latest add button
 ```
 
+#### antd 和 Tailwind CSS 一起使用
+
+如果 `antd` 和 `Tailwind CSS` 一起使用，按照官方文档的推荐，需要通过 `@layer` 调整样式层级，避免第三方样式库难以通过提升 CSS 选择器优先级来覆盖 `antd` 样式。
+
+除了 `Tailwind CSS`，这个方案也适用于 `Emotion`、`styled-components` 等样式库共存的场景。
+
+1、先在 `StyleProvider` 上开启 `layer`
+
+如官方说明，使用 `StyleProvider` 时需要包裹 `ConfigProvider`，这样才能同时更新图标相关样式：
+
+```tsx
+import { StyleProvider } from "@ant-design/cssinjs";
+
+export default () => (
+  <StyleProvider layer>
+    <ConfigProvider>
+      <MyApp />
+    </ConfigProvider>
+  </StyleProvider>
+);
+```
+
+2、如果是 `Tailwind CSS v4`，在全局样式文件中调整 `@layer` 顺序
+
+可以在 `global.css` 或 `index.css` 中这样写，让 `antd` 处在合适的层级位置：
+
+```css
+@layer theme, base, antd, components, utilities;
+
+@import "tailwindcss";
+```
+
+这样可以更稳定地控制 `antd` 和 `Tailwind CSS` 的样式覆盖顺序，减少组件样式冲突。
+
+#### 常用额外依赖一键安装
+
+如果想直接把常用依赖一次装好，可以使用：
+
+```bash
+yarn add antd @ant-design/icons axios ahooks zustand react-router dayjs es-toolkit
+```
+
 
 
 ### 工具库
 
 ```bash
+yarn add axios
 yarn add ahooks
-yarn add 
+yarn add zustand
+yarn add es-toolkit
 # 旧版
 yarn add react-router-dom
 # 新版
 yarn add react-router
 ```
+
+其中 `es-toolkit` 是一个先进的、高性能的 JavaScript 实用工具库，包体积较小，同时提供了较强的类型注解支持。
 
 
 

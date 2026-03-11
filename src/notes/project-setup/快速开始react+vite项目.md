@@ -115,6 +115,25 @@ export default defineConfig({
 });
 ```
 
+### 配置 cn 函数
+
+安装依赖：
+
+```bash
+yarn add clsx tailwind-merge
+```
+
+新增 `src/utils/cn.ts`
+
+```ts
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
 ### UI 库 antd/shadcn
 
 [antd 官网](https://ant-design.antgroup.com/components/overview-cn/)
@@ -132,6 +151,42 @@ npx shadcn@latest init
 npx shadcn@latest add button
 ```
 
+#### antd 和 Tailwind CSS 一起使用
+
+如果 `antd` 和 `Tailwind CSS` 一起使用，建议按官方文档配置 `@layer`，这样更容易处理和第三方样式库共存时的样式覆盖问题。
+
+1、在 `StyleProvider` 上开启 `layer`，并用它包裹 `ConfigProvider`
+
+```tsx
+import { StyleProvider } from "@ant-design/cssinjs";
+
+export default () => (
+  <StyleProvider layer>
+    <ConfigProvider>
+      <MyApp />
+    </ConfigProvider>
+  </StyleProvider>
+);
+```
+
+2、如果使用的是 `Tailwind CSS v4`，在全局样式文件中调整 `@layer` 顺序
+
+```css
+@layer theme, base, antd, components, utilities;
+
+@import "tailwindcss";
+```
+
+这样可以把 `antd` 放到合适的层级，减少和 `Tailwind CSS` 的样式冲突。
+
+#### 常用额外依赖一键安装
+
+如果想直接把常用依赖一次装好，可以使用：
+
+```bash
+yarn add antd @ant-design/icons axios ahooks zustand react-router dayjs es-toolkit
+```
+
 ### 工具库
 
 ```bash
@@ -141,6 +196,8 @@ yarn add axios
 yarn add ahooks
 # 状态库
 yarn add zustand
+# JS 工具库：高性能、包体积小、类型支持好
+yarn add es-toolkit
 # 路由
 yarn add react-router
 ```
@@ -167,16 +224,16 @@ yarn add react-icons
 ```css
 // 将所有样式删除，如果需要可以留下字体相关的样式
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 // 将所有元素的默认边距清除，并使用border-box告诉浏览器border和padding是包含在width中的，（可选：供不同理解的开发者进行选择布局计算方式）

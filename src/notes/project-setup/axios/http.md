@@ -2,20 +2,21 @@
 
 ```ts
 import axios, {
-  AxiosInstance,
-  AxiosResponse,
-  InternalAxiosRequestConfig,
+  AxiosError,
+  type AxiosInstance,
+  type AxiosResponse,
+  type InternalAxiosRequestConfig,
 } from "axios";
 
 // 定义响应数据结构
-interface ResponseData<T = any> {
+interface ResponseData<T = unknown> {
   code: number;
   data: T;
   message: string;
 }
 
 // 创建 axios 实例
-const api: AxiosInstance = axios.create({
+const http: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_API || "/api",
   timeout: 10000,
   headers: {
@@ -24,7 +25,7 @@ const api: AxiosInstance = axios.create({
 });
 
 // 请求拦截器
-api.interceptors.request.use(
+http.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     // 添加 token
     const token = localStorage.getItem("token");
@@ -33,15 +34,15 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error: any) => {
+  (error: unknown) => {
     return Promise.reject(error);
   }
 );
 
 // 响应拦截器
-api.interceptors.response.use(
+http.interceptors.response.use(
   (response: AxiosResponse<ResponseData>) => response,
-  (error: any) => {
+  (error: AxiosError<ResponseData>) => {
     if (error.response) {
       switch (error.response.status) {
         case 401:
@@ -61,5 +62,5 @@ api.interceptors.response.use(
   }
 );
 
-export default api;
+export default http;
 ```

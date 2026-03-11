@@ -173,6 +173,7 @@ const propmtNotes: DefaultTheme.SidebarMulti = {
     {
       text: "AI Prompt",
       items: [
+        { text: "AI 编程", link: "/notes/propmt/ai 编程" },
         { text: "翻译", link: "/notes/propmt/翻译" },
         { text: "插件系统", link: "/notes/propmt/插件系统" },
         { text: "AI-IDEA开发", link: "/notes/propmt/AI-IDEA" },
