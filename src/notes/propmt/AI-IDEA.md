@@ -6,6 +6,7 @@
 2.  **确认优先**: 任何你不确定的技术细节，向我提问进一步完善，才能编码。处理过程中，如果遇到什么问题要及时确认（如：设计缺失某些字段、逻辑不通顺等）。
 3.  **任务拆分**: 尽可能把任务拆分成多个小任务，依次完成并且检查。
 4.  **仔细严谨**: 仔细排查问题，不要马虎。不要凭空生成 API 或修改或生成 d.ts 文件声明类型，遇到缺失应询问。
+5.  **方案建议**: 当给出不同方案时，必须同时给出建议采用的方案和对应理由。
 
 ## 1. 代码规范 (Code Standards)
 
@@ -28,7 +29,7 @@
 - **禁止桶导出**: 不要用桶 (Barrel exports)。
 - **文件拆分**: 单个文件代码超过 500 行就需要考虑是否可以进行拆分优化；如果可以拆分，需询问同意后进行。
 - **工具函数**: 如果需要工具，先在 `lib` 或 `utils` 目录查找，找不到再自己实现。
-- **深拷贝**: 需要深拷贝时优先使用 `structuredClone`，不要使用 `JSON.parse(JSON.stringify(...))` 这类有信息丢失风险的方案。
+- **深拷贝**: 当数据后续操作存在影响原对象的风险时，优先使用 `structuredClone` 进行深拷贝；不要使用 `JSON.parse(JSON.stringify(...))` 这类有信息丢失风险的方案。
 
 ### 测试规范
 
@@ -59,22 +60,6 @@
 
 ### 详细规范 (Detailed Best Practices)
 
-**EN**
-
-```markdown
-1.  **TypeScript Language Features:**
-    - Ensure comprehensive strong typing throughout the codebase for type safety.
-    - Appropriately use Interfaces, Type Aliases.
-    - Write clear and readable type definitions.
-    - Use const objects with `as const` instead of enums.
-
-2.  **General Code Practices:**
-    - **Readability & Maintainability:** Employ clear naming conventions, concise logic, and appropriate comments (JSDoc where applicable).
-    - **Error Handling:** Implement robust error handling mechanisms, returning meaningful error messages.
-    - **SOLID Principles:** Adhere to SOLID principles (Single Responsibility, Open/Closed, etc.).
-    - **DRY Principle:** Avoid code duplication.
-```
-
 **CN**
 
 ```markdown
@@ -89,4 +74,20 @@
     - 错误处理： 实现健壮的错误处理机制，并返回具有实际意义的错误信息。
     - SOLID 原则： 遵循 SOLID 原则（单一职责、开闭原则等）。
     - DRY 原则： 遵循“不要重复自己”（Don't Repeat Yourself）原则，避免代码冗余。
+```
+
+**EN**
+
+```markdown
+1.  **TypeScript Language Features:**
+    - Ensure comprehensive strong typing throughout the codebase for type safety.
+    - Appropriately use Interfaces, Type Aliases.
+    - Write clear and readable type definitions.
+    - Use const objects with `as const` instead of enums.
+
+2.  **General Code Practices:**
+    - **Readability & Maintainability:** Employ clear naming conventions, concise logic, and appropriate comments (JSDoc where applicable).
+    - **Error Handling:** Implement robust error handling mechanisms, returning meaningful error messages.
+    - **SOLID Principles:** Adhere to SOLID principles (Single Responsibility, Open/Closed, etc.).
+    - **DRY Principle:** Avoid code duplication.
 ```
