@@ -18,6 +18,7 @@ sidebar_position: 2
     - [配置 cn 函数](#配置-cn-函数)
   - [UI 库 antd/shadcn](#ui-库-antdshadcn)
     - [antd 和 Tailwind CSS 一起使用](#antd-和-tailwind-css-一起使用)
+    - [常用额外依赖一键安装](#常用额外依赖一键安装)
   - [工具库](#工具库)
   - [代码清洗 \& 初始化目录结构](#代码清洗--初始化目录结构)
   - [路由配置](#路由配置)
@@ -67,9 +68,7 @@ yarn create vite@4
 
 ![image.png](https://p0.meituan.net/csc/ed32136f61813d512564ac0050cc6d3267304.png)
 
-
-
-### tailwind 安装 
+### tailwind 安装
 
 - #### 新版
 
@@ -82,13 +81,11 @@ yarn add tailwindcss @tailwindcss/vite
 2、配置vite插件
 
 ```ts
-import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from "vite";
+import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
-  plugins: [
-    tailwindcss(),
-  ],
-})
+  plugins: [tailwindcss()],
+});
 ```
 
 3、在 index.css 导入 tailwindcss
@@ -97,14 +94,12 @@ export default defineConfig({
 @import "tailwindcss";
 ```
 
-
-
 - #### 旧版
 
 1、安装 Tailwind CSS, PostCSS 和 Autoprefixer
 
 ```
-yarn add -D tailwindcss postcss autoprefixer 
+yarn add -D tailwindcss postcss autoprefixer
 ```
 
 2、生成 Tailwind 配置文件
@@ -159,8 +154,6 @@ corePlugins: {
 <div className="flex text-[16px] items-center justify-center">Home</div>
 ```
 
-
-
 ### 设置@/来帮助导入文件或组件
 
 #### 编辑 tsconfig.json 文件
@@ -181,7 +174,8 @@ tsconfig.json
     }
   ],
   "compilerOptions": {
-    "baseUrl": ".",
+    // 从 TypeScript 6.0 开始，baseUrl 不再是使用 paths 的必要条件
+    // "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
@@ -191,7 +185,7 @@ tsconfig.json
 
 #### 编辑 tsconfig.app.json 文件
 
-在  `tsconfig.app.json` 文件中添加以下代码，以解析路径：
+在 `tsconfig.app.json` 文件中添加以下代码，以解析路径：
 
 tsconfig.app.json
 
@@ -199,11 +193,10 @@ tsconfig.app.json
 {
   "compilerOptions": {
     // ...
-    "baseUrl": ".",
+    // 从 TypeScript 6.0 开始，baseUrl 不再是使用 paths 的必要条件
+    // "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
     // ...
   }
@@ -276,8 +269,6 @@ export function cn(...inputs: ClassValue[]) {
 }
 ```
 
-
-
 ### UI 库 antd/shadcn
 
 ```bash
@@ -332,8 +323,6 @@ export default () => (
 yarn add antd @ant-design/icons axios ahooks zustand react-router dayjs es-toolkit
 ```
 
-
-
 ### 工具库
 
 ```bash
@@ -349,8 +338,6 @@ yarn add react-router
 
 其中 `es-toolkit` 是一个先进的、高性能的 JavaScript 实用工具库，包体积较小，同时提供了较强的类型注解支持。
 
-
-
 ### 代码清洗 & 初始化目录结构
 
 当使用 vite 生成的目录结构，有一些简单的 demo 代码在里面，可以让你简单体验该框架和构建器的代码，不过要进行开发的并不需要，所以需要将这些代码清洗一下
@@ -360,16 +347,16 @@ yarn add react-router
 ```css
 // 将所有样式删除，如果需要可以留下字体相关的样式
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 // 将所有元素的默认边距清除，并使用border-box告诉浏览器border和padding是包含在width中的，（可选：供不同理解的开发者进行选择布局计算方式）

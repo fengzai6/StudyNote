@@ -74,7 +74,8 @@ yarn add -D @types/node
     // ...
   ],
   "compilerOptions": {
-    "baseUrl": ".",
+    // 从 TypeScript 6.0 开始，baseUrl 不再是使用 paths 的必要条件
+    // "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
@@ -88,7 +89,8 @@ yarn add -D @types/node
 {
   "compilerOptions": {
     // ...
-    "baseUrl": ".",
+    // 从 TypeScript 6.0 开始，baseUrl 不再是使用 paths 的必要条件
+    // "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
