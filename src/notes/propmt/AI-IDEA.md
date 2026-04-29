@@ -1,57 +1,106 @@
 ## 0. 核心原则 (Core Principles)
 
-1.  **语言**: Always use simp Chinese response, important.
-2.  **确认优先**: 任何你不确定的技术细节，向我提问进一步完善，才能编码。处理过程中，如果遇到什么问题要及时确认（如：设计缺失某些字段、逻辑不通顺等）。
-3.  **任务拆分**: 尽可能把任务拆分成多个小任务，依次完成并且检查。
-4.  **仔细严谨**: 仔细排查问题，不要马虎。不要凭空生成 API 或修改或生成 d.ts 文件声明类型，遇到缺失应询问。
-5.  **方案建议**: 当路线不清晰，可以给出多个方案，当给出不同方案时，必须同时给出建议采用的方案和对应理由。
-6.  **开发流程补充**:
-    - 当需求已经足够清晰、改动范围明确、风险可控时，先做简短确认后可直接开始修改，不需要先单独输出设计文档。
-    - 当需求不清晰、存在多个方案分叉、影响面较大或风险较高时，才可以输出设计方案，与用户确认后再实施。
+1. **语言**: Always use simp Chinese response, important.
+2. **确认优先**:
+   - 任何你不确定的技术细节, 不要猜测用户意图，向我提问进一步完善，才能编码。
+   - 处理过程中，如果遇到什么问题要及时确认（如：设计缺失某些字段、逻辑不通顺等）。
+3. **任务拆分**:
+   - 尽可能把任务拆分成多个小任务，依次完成并且检查。
+4. **仔细严谨**:
+   - 仔细排查问题，不要马虎。
+   - 不要凭空生成 API 或修改或生成 d.ts 文件声明类型，遇到缺失应询问。
+5. **方案建议**:
+   - 当路线不清晰，可以给出多个方案。
+   - 当给出不同方案时，必须同时给出建议采用的方案和对应理由。
+6. **开发流程补充**:
+   - 当需求已经足够清晰、改动范围明确、风险可控时，先做简短确认后可直接开始修改，不需要先单独输出设计文档。
+   - 当需求不清晰、存在多个方案分叉、影响面较大或风险较高时，才可以输出设计方案，与用户确认后再实施。
+7. **禁止额外发挥**:
+   - 只做用户明确要求的事，绝不做任何额外发挥。
+8. **遵循项目现有风格**:
+   - 始终匹配项目现有的代码风格和约定，不要自作主张改变。
+9. **保持实现简洁**:
+   - 代码能简短实现就保持简短，不要为了“更好看”而写长代码或添加抽象。
 
-## 1. 代码规范 (Code Standards)
+## 1. 通用代码规范 (General Code Standards)
 
-### 命名规范
+### 1.1 命名规范
 
 - **文件目录**: kebab-case (如 `react-button`)
-- **组件文件**: PascalCase (如 `MyComponent.tsx`)
 - **函数**: camelCase (特殊情况除外：如 api 函数，命名采用 PascalCase 命名)
 - **变量**: camelCase
 - **常量**: UPPER_CASE
 - **类型**: PascalCase
 - **接口**: `I` + PascalCase (如 `IUser`)
-- **组件接口**: 必须以 `Props` 结尾 (如 `IButtonProps`, `IModalProps`)
 
-### 组件与文件结构
+### 1.2 文件与复用规范
 
-- **组件封装**: 对于重复出现的代码，应尽可能封装成通用组件或者 hook。
-- **优先复用**: 优先使用框架或者自带 `components` 目录下的组件。
-- **文件结构**: 组件新增使用文件夹加 `index` 的做法，如 `react-button/index.tsx`。
+- **优先复用现有实现**:
+  - 对于已有的逻辑、能力或结构，优先复用现有实现，不要重复造轮子。
+  - 开始新增实现前，应先检查项目中是否已有可复用的函数、模块、组件、hook、类型或配置。
+- **重复逻辑应抽离复用**:
+  - 对于重复出现或明显可复用的代码，应优先考虑抽离为公共实现。
+  - 抽离时应结合项目现有结构，优先放入合适的公共目录，而不是随意新增层级。
 - **禁止桶导出**: 不要用桶 (Barrel exports)。
-- **文件拆分**: 单个文件代码超过 500 行就需要考虑是否可以进行拆分优化；如果可以拆分，需询问同意后进行。
-- **工具函数**: 如果需要工具，先在 `lib` 或 `utils` 目录查找，找不到再自己实现。
-- **深拷贝**: 当数据后续操作存在影响原对象的风险时，优先使用 `structuredClone` 进行深拷贝；不要使用 `JSON.parse(JSON.stringify(...))` 这类有信息丢失风险的方案。
+- **文件拆分**:
+  - 单个文件代码超过 500 行就需要考虑是否可以进行拆分优化；
+  - 如果可以拆分，需询问同意后进行。
+- **工具函数**:
+  - 如果需要工具，先在 `lib` 或 `utils` 目录查找，找不到再自己实现。
 
-### 测试规范
+### 1.3 数据处理规范
 
-- **先确认再写测试**: 当需要新增测试、补充测试文件或扩大测试范围时，必须先询问用户是否允许编写测试。
-- **优先函数逻辑测试**: 测试优先聚焦纯函数、工具函数、复杂业务函数等可稳定验证的逻辑。
-- **简单函数可减免测试**: 对逻辑非常直接、收益较低的简单函数，可不强制补测试。
-- **避免不必要的重测试**: 非必要不要主动编写 UI 测试、E2E 测试或大规模集成测试。
+- **深拷贝**:
+  - 当数据后续操作存在影响原对象的风险时，优先使用 `structuredClone` 进行深拷贝；
+  - 不要使用 `JSON.parse(JSON.stringify(...))` 这类有信息丢失风险的方案。
 
-## 2. React & 框架规范 (React & Framework Guidelines)
+### 1.4 测试规范
 
-- **路由**: 在新版中，react-router 已经将 react-router-dom 合并到 react-router 中，请使用该包进行路由管理。
-- **状态管理**: 当使用 zustand 中的多个状态时，使用 `useShallow` 进行状态浅比较获取，避免不必要的 re-render。
-- **性能优化**: 如果项目使用了 react-compiler，无需手动使用 `memo`, `useCallback` 等，编译器会自动处理。
-- **代码结构**: React 组件代码必须遵循严格的顺序：state（状态定义） => function（函数定义） => useEffect（副作用处理）
+- **先确认再写测试**:
+  - 当需要新增测试、补充测试文件或扩大测试范围时，必须先询问用户是否允许编写测试，并给出理由，不需要就不要停下询问。
+- **优先函数逻辑测试**:
+  - 测试优先聚焦纯函数、工具函数、复杂业务函数等可稳定验证的逻辑。
+- **简单函数可减免测试**:
+  - 对逻辑非常直接、收益较低的简单函数，可不强制补测试。
+- **避免不必要的重测试**:
+  - 非必要不要主动编写 UI 测试、E2E 测试或大规模集成测试。
 
-## 3. 样式与 UI 还原 (Styling & UI Implementation)
+## 2. 前端专项规范 (Frontend-Specific Standards)
 
-- **原子样式**: 项目如果配置了原子样式（tailwind、nativewind），优先使用原子样式实现。
-- **类名**: 若项目采用原子样式，组件需按逻辑动态拼接类名时，尽量避免使用模板字符串，统一使用 `cn` 工具函数处理，确保样式合并可预测且避免冲突。
+### 2.1 组件与文件结构
 
-## 4. TypeScript 最佳实践 (TypeScript Best Practices)
+- **组件文件**: PascalCase (如 `MyComponent.tsx`)
+- **组件接口**:
+  - 必须以 `Props` 结尾 (如 `IButtonProps`, `IModalProps`)
+- **组件封装**:
+  - 对于重复出现的代码，应尽可能封装成通用组件或者 hook。
+- **优先复用**:
+  - 优先使用框架或者自带 `components` 目录下的组件。
+- **文件结构**:
+  - 组件新增使用文件夹加 `index` 的做法，如 `react-button/index.tsx`。
+
+### 2.2 React & 框架规范 (React & Framework Guidelines)
+
+- **路由**:
+  - 在新版中，react-router 已经将 react-router-dom 合并到 react-router 中，请使用该包进行路由管理。
+- **状态管理**:
+  - 当使用 zustand 中的多个状态时，使用 `useShallow` 进行状态浅比较获取，避免不必要的 re-render。
+- **性能优化**:
+  - 如果项目使用了 react-compiler，无需使用 `memo`, `useCallback` 包裹函数，编译器会自动处理。
+- **代码结构**:
+  - React 组件代码必须遵循严格的顺序：state（状态定义） => function（函数定义） => useEffect（副作用处理）
+- **Effect**:
+  - 如果需要在 useEffect 用的函数请用 useEffectEvent 包裹，从而不用再添加非必要依赖到 useEffect，
+  - 如果该函数不是仅在 useEffect 中使用，可以这样 `const funInEffect = useEffectEvent(fun)` 加一层后去使用。
+
+### 2.3 样式与 UI 还原 (Styling & UI Implementation)
+
+- **原子样式**:
+  - 项目如果配置了原子样式（tailwind、nativewind），优先使用原子样式实现。
+- **类名**:
+  - 若项目采用原子样式，组件需按逻辑动态拼接类名时，尽量避免使用模板字符串，统一使用 `cn` 工具函数处理，确保样式合并可预测且避免冲突。
+
+## 3. TypeScript 最佳实践 (TypeScript Best Practices)
 
 ### 通用规则
 
@@ -75,20 +124,4 @@
     - 错误处理： 实现健壮的错误处理机制，并返回具有实际意义的错误信息。
     - SOLID 原则： 遵循 SOLID 原则（单一职责、开闭原则等）。
     - DRY 原则： 遵循“不要重复自己”（Don't Repeat Yourself）原则，避免代码冗余。
-```
-
-**EN**
-
-```markdown
-1.  **TypeScript Language Features:**
-    - Ensure comprehensive strong typing throughout the codebase for type safety.
-    - Appropriately use Interfaces, Type Aliases.
-    - Write clear and readable type definitions.
-    - Use const objects with `as const` instead of enums.
-
-2.  **General Code Practices:**
-    - **Readability & Maintainability:** Employ clear naming conventions, concise logic, and appropriate comments (JSDoc where applicable).
-    - **Error Handling:** Implement robust error handling mechanisms, returning meaningful error messages.
-    - **SOLID Principles:** Adhere to SOLID principles (Single Responsibility, Open/Closed, etc.).
-    - **DRY Principle:** Avoid code duplication.
 ```
