@@ -44,6 +44,10 @@ const mainNotes: DefaultTheme.SidebarMulti = {
               text: "双 Token 封装",
               link: "/notes/project-setup/axios/http-refresh-token",
             },
+            {
+              text: "高级可配置封装",
+              link: "/notes/project-setup/axios/http-advanced",
+            },
           ],
         },
       ],
